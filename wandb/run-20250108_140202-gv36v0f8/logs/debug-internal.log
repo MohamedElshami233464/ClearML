@@ -1,0 +1,18 @@
+{"time":"2025-01-08T14:02:02.7778908+01:00","level":"INFO","msg":"using version","core version":"0.19.0"}
+{"time":"2025-01-08T14:02:02.7778908+01:00","level":"INFO","msg":"created symlink","path":"C:\\Users\\melsh\\Y2B-2023-OT2_Twin\\wandb\\run-20250108_140202-gv36v0f8\\logs\\debug-core.log"}
+{"time":"2025-01-08T14:02:03.4858949+01:00","level":"INFO","msg":"created new stream","id":"gv36v0f8"}
+{"time":"2025-01-08T14:02:03.4864066+01:00","level":"INFO","msg":"stream: started","id":"gv36v0f8"}
+{"time":"2025-01-08T14:02:03.4864066+01:00","level":"INFO","msg":"writer: Do: started","stream_id":"gv36v0f8"}
+{"time":"2025-01-08T14:02:03.4864066+01:00","level":"INFO","msg":"handler: started","stream_id":"gv36v0f8"}
+{"time":"2025-01-08T14:02:03.4864066+01:00","level":"INFO","msg":"sender: started","stream_id":"gv36v0f8"}
+{"time":"2025-01-08T14:02:03.639761+01:00","level":"ERROR","msg":"HTTP error","status":401,"method":"POST","url":"https://api.wandb.ai/graphql"}
+{"time":"2025-01-08T14:02:03.6403104+01:00","level":"ERROR","msg":"sender: upsertRun:","error":"failed to upsert bucket: returned error 401 Unauthorized: {\"errors\":[{\"message\":\"user is not logged in\",\"path\":[\"upsertBucket\"],\"extensions\":{\"code\":\"PERMISSION_ERROR\"}}],\"data\":{\"upsertBucket\":null}}"}
+{"time":"2025-01-08T14:02:03.6534742+01:00","level":"INFO","msg":"stream: closing","id":"gv36v0f8"}
+{"time":"2025-01-08T14:02:03.6540652+01:00","level":"ERROR","msg":"sender: upsertConfig: RunRecord is nil"}
+{"time":"2025-01-08T14:02:03.824115+01:00","level":"ERROR","msg":"HTTP error","status":404,"method":"POST","url":"https://api.wandb.ai/graphql"}
+{"time":"2025-01-08T14:02:03.824115+01:00","level":"ERROR","msg":"runfiles: CreateRunFiles returned error: returned error 404 Not Found: {\"errors\":[{\"message\":\"project /RL_OT2_Control not found during createRunFiles\",\"path\":[\"createRunFiles\"]}],\"data\":{\"createRunFiles\":null}}"}
+{"time":"2025-01-08T14:02:03.8266759+01:00","level":"INFO","msg":"fileTransfer: Close: file transfer manager closed"}
+{"time":"2025-01-08T14:02:03.8266759+01:00","level":"INFO","msg":"handler: closed","stream_id":"gv36v0f8"}
+{"time":"2025-01-08T14:02:03.8266759+01:00","level":"INFO","msg":"writer: Close: closed","stream_id":"gv36v0f8"}
+{"time":"2025-01-08T14:02:03.8266759+01:00","level":"INFO","msg":"sender: closed","stream_id":"gv36v0f8"}
+{"time":"2025-01-08T14:02:03.8266759+01:00","level":"INFO","msg":"stream: closed","id":"gv36v0f8"}

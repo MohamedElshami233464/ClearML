@@ -1,0 +1,17 @@
+{"time":"2025-01-08T16:40:31.010473+01:00","level":"INFO","msg":"stream: starting","core version":"0.19.2","symlink path":"C:\\Year 2\\Y2- Block B\\ClearML\\wandb\\run-20250108_164030-cebh0m1d\\logs\\debug-core.log"}
+{"time":"2025-01-08T16:40:31.1244375+01:00","level":"INFO","msg":"created new stream","id":"cebh0m1d"}
+{"time":"2025-01-08T16:40:31.1244375+01:00","level":"INFO","msg":"stream: started","id":"cebh0m1d"}
+{"time":"2025-01-08T16:40:31.1244375+01:00","level":"INFO","msg":"handler: started","stream_id":"cebh0m1d"}
+{"time":"2025-01-08T16:40:31.1244375+01:00","level":"INFO","msg":"writer: Do: started","stream_id":"cebh0m1d"}
+{"time":"2025-01-08T16:40:31.1244375+01:00","level":"INFO","msg":"sender: started","stream_id":"cebh0m1d"}
+{"time":"2025-01-08T16:40:31.593581+01:00","level":"INFO","msg":"Starting system monitor"}
+{"time":"2025-01-08T16:40:44.6348712+01:00","level":"INFO","msg":"tensorboard: no root directory after 10 seconds, using working directory"}
+{"time":"2025-01-08T16:40:44.6390603+01:00","level":"ERROR","msg":"tensorboard: error creating symlink","target":"C:\\Year 2\\Y2- Block B\\ClearML\\runs\\cebh0m1d\\runs\\cebh0m1d_1\\events.out.tfevents.1736350834.Mo.26728.0","symlink":"C:\\Year 2\\Y2- Block B\\ClearML\\wandb\\run-20250108_164030-cebh0m1d\\files\\runs\\cebh0m1d\\runs\\cebh0m1d_1\\events.out.tfevents.1736350834.Mo.26728.0","error":"symlink C:\\Year 2\\Y2- Block B\\ClearML\\runs\\cebh0m1d\\runs\\cebh0m1d_1\\events.out.tfevents.1736350834.Mo.26728.0 C:\\Year 2\\Y2- Block B\\ClearML\\wandb\\run-20250108_164030-cebh0m1d\\files\\runs\\cebh0m1d\\runs\\cebh0m1d_1\\events.out.tfevents.1736350834.Mo.26728.0: A required privilege is not held by the client."}
+{"time":"2025-01-08T16:40:50.9308029+01:00","level":"INFO","msg":"stream: closing","id":"cebh0m1d"}
+{"time":"2025-01-08T16:40:50.9308029+01:00","level":"INFO","msg":"Stopping system monitor"}
+{"time":"2025-01-08T16:40:50.9342177+01:00","level":"INFO","msg":"Stopped system monitor"}
+{"time":"2025-01-08T16:40:52.5786451+01:00","level":"INFO","msg":"fileTransfer: Close: file transfer manager closed"}
+{"time":"2025-01-08T16:40:52.7847158+01:00","level":"INFO","msg":"handler: closed","stream_id":"cebh0m1d"}
+{"time":"2025-01-08T16:40:52.7847158+01:00","level":"INFO","msg":"sender: closed","stream_id":"cebh0m1d"}
+{"time":"2025-01-08T16:40:52.7847158+01:00","level":"INFO","msg":"writer: Close: closed","stream_id":"cebh0m1d"}
+{"time":"2025-01-08T16:40:52.7852239+01:00","level":"INFO","msg":"stream: closed","id":"cebh0m1d"}

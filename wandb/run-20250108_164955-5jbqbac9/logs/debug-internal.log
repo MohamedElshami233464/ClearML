@@ -1,0 +1,9 @@
+{"time":"2025-01-08T16:49:55.6183554+01:00","level":"INFO","msg":"stream: starting","core version":"0.19.2","symlink path":"C:\\Year 2\\Y2- Block B\\ClearML\\wandb\\run-20250108_164955-5jbqbac9\\logs\\debug-core.log"}
+{"time":"2025-01-08T16:49:55.7311463+01:00","level":"INFO","msg":"created new stream","id":"5jbqbac9"}
+{"time":"2025-01-08T16:49:55.7311463+01:00","level":"INFO","msg":"stream: started","id":"5jbqbac9"}
+{"time":"2025-01-08T16:49:55.7311463+01:00","level":"INFO","msg":"writer: Do: started","stream_id":"5jbqbac9"}
+{"time":"2025-01-08T16:49:55.7311463+01:00","level":"INFO","msg":"handler: started","stream_id":"5jbqbac9"}
+{"time":"2025-01-08T16:49:55.7316487+01:00","level":"INFO","msg":"sender: started","stream_id":"5jbqbac9"}
+{"time":"2025-01-08T16:49:56.2759667+01:00","level":"INFO","msg":"Starting system monitor"}
+{"time":"2025-01-08T16:50:08.4697432+01:00","level":"INFO","msg":"tensorboard: no root directory after 10 seconds, using working directory"}
+{"time":"2025-01-08T16:50:08.4707602+01:00","level":"ERROR","msg":"tensorboard: error creating symlink","target":"C:\\Year 2\\Y2- Block B\\ClearML\\runs\\5jbqbac9\\runs\\5jbqbac9_1\\events.out.tfevents.1736351398.Mo.3328.0","symlink":"C:\\Year 2\\Y2- Block B\\ClearML\\wandb\\run-20250108_164955-5jbqbac9\\files\\runs\\5jbqbac9\\runs\\5jbqbac9_1\\events.out.tfevents.1736351398.Mo.3328.0","error":"symlink C:\\Year 2\\Y2- Block B\\ClearML\\runs\\5jbqbac9\\runs\\5jbqbac9_1\\events.out.tfevents.1736351398.Mo.3328.0 C:\\Year 2\\Y2- Block B\\ClearML\\wandb\\run-20250108_164955-5jbqbac9\\files\\runs\\5jbqbac9\\runs\\5jbqbac9_1\\events.out.tfevents.1736351398.Mo.3328.0: A required privilege is not held by the client."}

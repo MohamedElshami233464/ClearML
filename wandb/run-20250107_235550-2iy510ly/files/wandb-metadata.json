@@ -1,0 +1,43 @@
+{
+  "os": "Windows-10-10.0.22631-SP0",
+  "python": "CPython 3.9.18",
+  "startedAt": "2025-01-07T22:55:50.922723Z",
+  "program": "C:\\Users\\melsh\\Y2B-2023-OT2_Twin\\train_agent.py",
+  "codePath": "train_agent.py",
+  "git": {
+    "remote": "https://github.com/BredaUniversityADSAI/Y2B-2023-OT2_Twin.git",
+    "commit": "0e544e1e880ee057636af3a2c8f5d5575a4da7ce"
+  },
+  "email": "233464@buas.nl",
+  "root": "C:\\Users\\melsh\\Y2B-2023-OT2_Twin",
+  "host": "Mo",
+  "username": "melsh",
+  "executable": "C:\\Users\\melsh\\anaconda3\\envs\\Y2B\\python.exe",
+  "codePathLocal": "train_agent.py",
+  "cpu_count": 10,
+  "cpu_count_logical": 16,
+  "gpu": "NVIDIA GeForce RTX 4060 Laptop GPU",
+  "gpu_count": 1,
+  "disk": {
+    "/": {
+      "total": "994559987712",
+      "used": "321542983680"
+    }
+  },
+  "memory": {
+    "total": "16780509184"
+  },
+  "cpu": {
+    "count": 10,
+    "countLogical": 16
+  },
+  "gpu_nvidia": [
+    {
+      "name": "NVIDIA GeForce RTX 4060 Laptop GPU",
+      "memoryTotal": "8585740288",
+      "cudaCores": 3072,
+      "architecture": "Ada"
+    }
+  ],
+  "cudaVersion": "12.6"
+}
