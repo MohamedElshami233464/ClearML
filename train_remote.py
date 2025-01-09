@@ -11,7 +11,7 @@ import os
 import argparse
 from clearml import Task
 from stable_baselines3 import PPO
-import gym
+import gymnasium as gym
 
 # Step 1: Initialize ClearML Task
 task = Task.init(
