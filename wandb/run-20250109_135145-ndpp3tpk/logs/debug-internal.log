@@ -1,0 +1,17 @@
+{"time":"2025-01-09T13:51:46.1810129+01:00","level":"INFO","msg":"stream: starting","core version":"0.19.2","symlink path":"C:\\Year 2\\Y2- Block B\\ClearML\\wandb\\run-20250109_135145-ndpp3tpk\\logs\\debug-core.log"}
+{"time":"2025-01-09T13:51:46.2952549+01:00","level":"INFO","msg":"created new stream","id":"ndpp3tpk"}
+{"time":"2025-01-09T13:51:46.2952549+01:00","level":"INFO","msg":"stream: started","id":"ndpp3tpk"}
+{"time":"2025-01-09T13:51:46.2953963+01:00","level":"INFO","msg":"handler: started","stream_id":"ndpp3tpk"}
+{"time":"2025-01-09T13:51:46.2953963+01:00","level":"INFO","msg":"sender: started","stream_id":"ndpp3tpk"}
+{"time":"2025-01-09T13:51:46.2953963+01:00","level":"INFO","msg":"writer: Do: started","stream_id":"ndpp3tpk"}
+{"time":"2025-01-09T13:51:46.7022224+01:00","level":"INFO","msg":"Starting system monitor"}
+{"time":"2025-01-09T13:51:59.9829526+01:00","level":"INFO","msg":"tensorboard: no root directory after 10 seconds, using working directory"}
+{"time":"2025-01-09T14:19:21.2050743+01:00","level":"INFO","msg":"Stopping system monitor"}
+{"time":"2025-01-09T14:19:21.2060962+01:00","level":"INFO","msg":"Stopped system monitor"}
+{"time":"2025-01-09T14:19:22.2135566+01:00","level":"INFO","msg":"handler: operation stats","stats":{"operations":[{"desc":"uploading model.zip","runtime_seconds":0.2999337,"progress":"143.2KB/143.2KB"}],"total_operations":1}}
+{"time":"2025-01-09T14:19:22.4205967+01:00","level":"INFO","msg":"fileTransfer: Close: file transfer manager closed"}
+{"time":"2025-01-09T14:19:23.6736966+01:00","level":"INFO","msg":"stream: closing","id":"ndpp3tpk"}
+{"time":"2025-01-09T14:19:23.6736966+01:00","level":"INFO","msg":"handler: closed","stream_id":"ndpp3tpk"}
+{"time":"2025-01-09T14:19:23.6736966+01:00","level":"INFO","msg":"writer: Close: closed","stream_id":"ndpp3tpk"}
+{"time":"2025-01-09T14:19:23.6736966+01:00","level":"INFO","msg":"sender: closed","stream_id":"ndpp3tpk"}
+{"time":"2025-01-09T14:19:23.6736966+01:00","level":"INFO","msg":"stream: closed","id":"ndpp3tpk"}
