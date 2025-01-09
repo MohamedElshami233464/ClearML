@@ -12,13 +12,9 @@ import os
 from stable_baselines3 import PPO
 from wandb.integration.sb3 import WandbCallback
 from ot2_gym_wrapper import OT2Env  # Ensure this is your Task 10 Gym Wrapper
-from clearml import Task
 import wandb
 
-# Initialize ClearML Task for remote execution
-task = Task.init(project_name="Mentor Group J/Group 2/Mohamed", task_name="RL Training Task 11")
-task.set_base_docker("deanis/2023y2b-rl:latest")
-task.execute_remotely(queue_name="default")
+
 
 # Parse hyperparameters
 parser = argparse.ArgumentParser(description="Train RL agent for OT-2 control")
@@ -52,18 +48,15 @@ model = PPO(
 
 # Add WandB callback
 wandb_callback = WandbCallback(
-    model_save_path=f"models/{run.id}",
+    model_save_freq=1000,
+    model_save_path="models/",
     verbose=2,
 )
 
 # Training the model
 print("Starting training...")
-model.learn(
-    total_timesteps=args.total_timesteps,
-    callback=wandb_callback,
-    reset_num_timesteps=False,
-    progress_bar=True,
-)
+model.learn(total_timesteps=100000, callback=wandb_callback)
+
 print("Training completed.")
 
 # Save the final model
