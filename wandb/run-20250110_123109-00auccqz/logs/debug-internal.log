@@ -1,0 +1,17 @@
+{"time":"2025-01-10T12:31:09.9260713+01:00","level":"INFO","msg":"stream: starting","core version":"0.19.2","symlink path":"C:\\Year 2\\Y2- Block B\\ClearML\\wandb\\run-20250110_123109-00auccqz\\logs\\debug-core.log"}
+{"time":"2025-01-10T12:31:10.4696194+01:00","level":"INFO","msg":"created new stream","id":"00auccqz"}
+{"time":"2025-01-10T12:31:10.4696194+01:00","level":"INFO","msg":"stream: started","id":"00auccqz"}
+{"time":"2025-01-10T12:31:10.4696194+01:00","level":"INFO","msg":"handler: started","stream_id":"00auccqz"}
+{"time":"2025-01-10T12:31:10.4696194+01:00","level":"INFO","msg":"writer: Do: started","stream_id":"00auccqz"}
+{"time":"2025-01-10T12:31:10.4696194+01:00","level":"INFO","msg":"sender: started","stream_id":"00auccqz"}
+{"time":"2025-01-10T12:31:10.715536+01:00","level":"INFO","msg":"Starting system monitor"}
+{"time":"2025-01-10T12:31:25.2492712+01:00","level":"INFO","msg":"tensorboard: no root directory after 10 seconds, using working directory"}
+{"time":"2025-01-10T12:59:30.5670406+01:00","level":"INFO","msg":"Stopping system monitor"}
+{"time":"2025-01-10T12:59:30.5677246+01:00","level":"INFO","msg":"Stopped system monitor"}
+{"time":"2025-01-10T12:59:31.5773568+01:00","level":"INFO","msg":"handler: operation stats","stats":{"operations":[{"desc":"uploading runs\\00auccqz\\PPO_1\\events.out.tfevents.1736508675.Mo.41556.0","runtime_seconds":0.1307369,"progress":"8.8KB/8.8KB"},{"desc":"uploading model.zip","runtime_seconds":0.1307369,"progress":"143.2KB/143.2KB"}],"total_operations":2}}
+{"time":"2025-01-10T12:59:32.0323972+01:00","level":"INFO","msg":"fileTransfer: Close: file transfer manager closed"}
+{"time":"2025-01-10T12:59:33.2615113+01:00","level":"INFO","msg":"stream: closing","id":"00auccqz"}
+{"time":"2025-01-10T12:59:33.2615113+01:00","level":"INFO","msg":"handler: closed","stream_id":"00auccqz"}
+{"time":"2025-01-10T12:59:33.2615113+01:00","level":"INFO","msg":"sender: closed","stream_id":"00auccqz"}
+{"time":"2025-01-10T12:59:33.2615113+01:00","level":"INFO","msg":"writer: Close: closed","stream_id":"00auccqz"}
+{"time":"2025-01-10T12:59:33.262172+01:00","level":"INFO","msg":"stream: closed","id":"00auccqz"}
