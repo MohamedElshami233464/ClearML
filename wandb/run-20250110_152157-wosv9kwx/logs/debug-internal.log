@@ -1,0 +1,16 @@
+{"time":"2025-01-10T15:21:57.4431895+01:00","level":"INFO","msg":"stream: starting","core version":"0.19.2","symlink path":"C:\\Year 2\\Y2- Block B\\ClearML\\wandb\\run-20250110_152157-wosv9kwx\\logs\\debug-core.log"}
+{"time":"2025-01-10T15:21:57.9772616+01:00","level":"INFO","msg":"created new stream","id":"wosv9kwx"}
+{"time":"2025-01-10T15:21:57.9772616+01:00","level":"INFO","msg":"stream: started","id":"wosv9kwx"}
+{"time":"2025-01-10T15:21:57.9772616+01:00","level":"INFO","msg":"handler: started","stream_id":"wosv9kwx"}
+{"time":"2025-01-10T15:21:57.9772616+01:00","level":"INFO","msg":"writer: Do: started","stream_id":"wosv9kwx"}
+{"time":"2025-01-10T15:21:57.9777791+01:00","level":"INFO","msg":"sender: started","stream_id":"wosv9kwx"}
+{"time":"2025-01-10T15:21:58.3024069+01:00","level":"INFO","msg":"Starting system monitor"}
+{"time":"2025-01-10T15:22:12.3548017+01:00","level":"INFO","msg":"tensorboard: no root directory after 10 seconds, using working directory"}
+{"time":"2025-01-10T16:38:39.2032584+01:00","level":"INFO","msg":"stream: closing","id":"wosv9kwx"}
+{"time":"2025-01-10T16:38:39.2032584+01:00","level":"INFO","msg":"Stopping system monitor"}
+{"time":"2025-01-10T16:38:39.2038253+01:00","level":"INFO","msg":"Stopped system monitor"}
+{"time":"2025-01-10T16:38:40.2697533+01:00","level":"INFO","msg":"fileTransfer: Close: file transfer manager closed"}
+{"time":"2025-01-10T16:38:40.4481559+01:00","level":"INFO","msg":"handler: closed","stream_id":"wosv9kwx"}
+{"time":"2025-01-10T16:38:40.4481559+01:00","level":"INFO","msg":"writer: Close: closed","stream_id":"wosv9kwx"}
+{"time":"2025-01-10T16:38:40.4481559+01:00","level":"INFO","msg":"sender: closed","stream_id":"wosv9kwx"}
+{"time":"2025-01-10T16:38:40.4481559+01:00","level":"INFO","msg":"stream: closed","id":"wosv9kwx"}
