@@ -27,9 +27,17 @@ for episode in range(args.episodes):
 
     while not done:
         action, _states = model.predict(obs, deterministic=True)
-        obs, reward, done, info = env.step(action)
+        step_result = env.step(action)
+
+        # Unpack step results
+        if len(step_result) == 4:
+            obs, reward, done, info = step_result
+        else:
+            obs, reward, done, info, *_ = step_result
+
         if isinstance(obs, tuple):
             obs, _ = obs  # Handle tuple return from step
+
         total_reward += reward
         step += 1
 
