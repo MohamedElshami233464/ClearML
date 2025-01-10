@@ -15,7 +15,7 @@ os.environ["WANDB_API_KEY"] = "53c5aad13580ec16ba2461389ae74b80dcbf8da7"
 
 # Initialize ClearML Task
 task = Task.init(project_name="Mentor Group J/Group 2/Mohamed",
-                 task_name="Task11_training")
+                 task_name="Task11_training_1")
 
 # Set Docker image
 task.set_base_docker("deanis/2023y2b-rl:latest")
@@ -24,7 +24,7 @@ task.set_base_docker("deanis/2023y2b-rl:latest")
 task.execute_remotely(queue_name="default")
 
 # Initialize WandB
-run = wandb.init(project="task11", sync_tensorboard=True)
+run = wandb.init(project="task11_1", sync_tensorboard=True)
 save_path = f"models/{run.id}"
 os.makedirs(save_path, exist_ok=True)
 
