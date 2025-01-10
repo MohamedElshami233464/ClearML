@@ -18,11 +18,12 @@ import wandb
 
 # Parse hyperparameters
 parser = argparse.ArgumentParser(description="RL Training for OT2 Environment using PPO")
-parser.add_argument('--learning_rate', type=float, default=0.0001, help='Learning rate for the optimizer')
-parser.add_argument('--batch_size', type=int, default=512, help='Batch size for training')
-parser.add_argument('--n_steps', type=int, default=8192, help='Number of steps per update')
-parser.add_argument('--gamma', type=float, default=0.995, help='Discount factor for rewards')
-parser.add_argument('--total_timesteps', type=int, default=5_000_000, help='Total timesteps for training')
+parser.add_argument('--learning_rate', type=float, default=0.0003, help='Learning rate for the optimizer')
+parser.add_argument('--batch_size', type=int, default=64, help='Batch size for training')
+parser.add_argument('--n_steps', type=int, default=2048, help='Number of steps per update')
+parser.add_argument('--gamma', type=float, default=0.99, help='Discount factor for rewards')
+parser.add_argument('--total_timesteps', type=int, default=1_000_000, help='Total timesteps for training')
+parser.add_argument('--n_epochs', type=int, default=10, help='Number of epochs for training')  # Add this line
 args = parser.parse_args()
 
 
