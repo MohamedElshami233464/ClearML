@@ -2,7 +2,7 @@
 train_rl_clearml.py
 
 This script trains a Reinforcement Learning (RL) agent to control the OT-2 pipette tip using Stable Baselines 3 (PPO).
-It includes integration with ClearML for experiment tracking and job execution.
+It integrates ClearML for experiment tracking and job execution, and WandB for logging and visualization.
 
 Author: Mohamed Elshami
 """
@@ -10,20 +10,25 @@ Author: Mohamed Elshami
 import argparse
 import os
 from stable_baselines3 import PPO
+from stable_baselines3.common.callbacks import CallbackList, BaseCallback
 from wandb.integration.sb3 import WandbCallback
+from stable_baselines3.common.env_checker import check_env
+from stable_baselines3.common.vec_env import DummyVecEnv
 from ot2_gym_wrapper import OT2Env  # Ensure this is your Task 10 Gym Wrapper
 import wandb
-from clearml import Task
+from clearml import Task, Logger
 
 # Initialize ClearML task
 task = Task.init(project_name="RL_OT2_Project", task_name="Task11_RL_Training")
+task.set_base_docker("deanis/2023y2b-rl:latest")
+task.execute_remotely(queue_name="default")
 
 # Parse hyperparameters
 parser = argparse.ArgumentParser(description="RL Training for OT2 Environment using PPO")
-parser.add_argument('--learning_rate', type=float, default=0.0003, help='Learning rate for the optimizer')
-parser.add_argument('--batch_size', type=int, default=64, help='Batch size for training')
-parser.add_argument('--n_steps', type=int, default=2048, help='Number of steps per update')
-parser.add_argument('--gamma', type=float, default=0.99, help='Discount factor for rewards')
+parser.add_argument('--learning_rate', type=float, default=0.0001, help='Learning rate for the optimizer')
+parser.add_argument('--batch_size', type=int, default=512, help='Batch size for training')
+parser.add_argument('--n_steps', type=int, default=8192, help='Number of steps per update')
+parser.add_argument('--gamma', type=float, default=0.995, help='Discount factor for rewards')
 parser.add_argument('--total_timesteps', type=int, default=1_000_000, help='Total timesteps for training')
 parser.add_argument('--n_epochs', type=int, default=10, help='Number of epochs for training')
 args = parser.parse_args()
@@ -34,15 +39,30 @@ task.connect(args.__dict__)
 # Initialize WandB for experiment tracking
 os.environ["WANDB_API_KEY"] = "53c5aad13580ec16ba2461389ae74b80dcbf8da7"
 run = wandb.init(project="RL_OT2_Control", name="Task11_RL_Training", sync_tensorboard=True)
+save_path = f"models/{run.id}"
+os.makedirs(save_path, exist_ok=True)
 
 # Initialize the Gym Environment
-# Render should be set to False for training and True for visualization during testing
-env = OT2Env(render=False, max_steps=500)  # Adjust max_steps based on task complexity
+# Render should be set to False for training
+env = DummyVecEnv([lambda: OT2Env(render=False, max_steps=500)])
+check_env(env)
 
-# Define the PPO model with specified hyperparameters
+# Define a custom logging callback for ClearML
+class ClearMLLoggingCallback(BaseCallback):
+    def __init__(self, verbose=0):
+        super(ClearMLLoggingCallback, self).__init__(verbose)
+        self.logger = Logger.current_logger()
+
+    def _on_step(self) -> bool:
+        # Log every 100 steps
+        if self.n_calls % 100 == 0:
+            self.logger.report_scalar("Training", "Timesteps", iteration=self.num_timesteps, value=self.num_timesteps)
+        return True
+
+# Create the PPO model with specified hyperparameters
 model = PPO(
-    "MlpPolicy",  # Multi-Layer Perceptron policy for continuous control tasks
-    env,
+    policy="MlpPolicy",
+    env=env,
     verbose=1,
     learning_rate=args.learning_rate,
     batch_size=args.batch_size,
@@ -52,26 +72,30 @@ model = PPO(
     tensorboard_log=f"runs/{run.id}",  # Log training metrics for visualization in TensorBoard
 )
 
-# Add a callback for WandB to track progress and save models periodically
+# Combine callbacks for WandB and ClearML logging
 wandb_callback = WandbCallback(
-    model_save_freq=1000,  # Save model every 1000 steps
-    model_save_path="models/",  # Directory to save intermediate and final models
-    verbose=2,  # Print detailed logging
+    model_save_freq=100000,
+    model_save_path=save_path,
+    verbose=2
 )
+clearml_callback = ClearMLLoggingCallback()
 
-# Begin model training
+callbacks = CallbackList([wandb_callback, clearml_callback])
+
+# Start model training
 print("Starting training...")
-model.learn(total_timesteps=args.total_timesteps, callback=wandb_callback)
+model.learn(total_timesteps=args.total_timesteps, callback=callbacks, progress_bar=True)
 print("Training completed.")
 
 # Save the final trained model
-model_save_path = f"models/{run.id}/final_model"
-model.save(model_save_path)
-print(f"Model saved at {model_save_path}")
+final_model_path = f"{save_path}/final_model"
+model.save(final_model_path)
+wandb.save(final_model_path)
+print(f"Model saved at {final_model_path}")
 
 # Log model artifacts to ClearML
-task.upload_artifact(name="final_model", artifact_object=model_save_path)
+task.upload_artifact(name="final_model", artifact_object=final_model_path)
 
-# Clean up and close resources
+# Clean up resources
 env.close()
 wandb.finish()
