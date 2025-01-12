@@ -1,0 +1,15 @@
+{"time":"2025-01-12T17:25:33.9722232+01:00","level":"INFO","msg":"stream: starting","core version":"0.19.2","symlink path":"C:\\Year 2\\Y2- Block B\\ClearML\\wandb\\run-20250112_172533-tztkosot\\logs\\debug-core.log"}
+{"time":"2025-01-12T17:25:34.4729657+01:00","level":"INFO","msg":"created new stream","id":"tztkosot"}
+{"time":"2025-01-12T17:25:34.4729657+01:00","level":"INFO","msg":"stream: started","id":"tztkosot"}
+{"time":"2025-01-12T17:25:34.4729657+01:00","level":"INFO","msg":"writer: Do: started","stream_id":"tztkosot"}
+{"time":"2025-01-12T17:25:34.4729657+01:00","level":"INFO","msg":"sender: started","stream_id":"tztkosot"}
+{"time":"2025-01-12T17:25:34.4729657+01:00","level":"INFO","msg":"handler: started","stream_id":"tztkosot"}
+{"time":"2025-01-12T17:25:34.7086772+01:00","level":"INFO","msg":"Starting system monitor"}
+{"time":"2025-01-12T17:25:36.4285392+01:00","level":"INFO","msg":"stream: closing","id":"tztkosot"}
+{"time":"2025-01-12T17:25:36.4287015+01:00","level":"INFO","msg":"Stopping system monitor"}
+{"time":"2025-01-12T17:25:36.4287015+01:00","level":"INFO","msg":"Stopped system monitor"}
+{"time":"2025-01-12T17:25:36.9733361+01:00","level":"INFO","msg":"fileTransfer: Close: file transfer manager closed"}
+{"time":"2025-01-12T17:25:37.1973607+01:00","level":"INFO","msg":"handler: closed","stream_id":"tztkosot"}
+{"time":"2025-01-12T17:25:37.1973607+01:00","level":"INFO","msg":"writer: Close: closed","stream_id":"tztkosot"}
+{"time":"2025-01-12T17:25:37.1973607+01:00","level":"INFO","msg":"sender: closed","stream_id":"tztkosot"}
+{"time":"2025-01-12T17:25:37.197865+01:00","level":"INFO","msg":"stream: closed","id":"tztkosot"}
