@@ -1,12 +1,3 @@
-"""
-train_rl_clearml.py
-
-This script trains a Reinforcement Learning (RL) agent to control the OT-2 pipette tip using Stable Baselines 3 (PPO).
-It integrates ClearML for experiment tracking and job execution, and WandB for logging and visualization.
-
-Author: Mohamed Elshami
-"""
-
 import argparse
 import os
 from stable_baselines3 import PPO
@@ -54,9 +45,14 @@ class ClearMLLoggingCallback(BaseCallback):
         self.logger = Logger.current_logger()
 
     def _on_step(self) -> bool:
-        # Log every 100 steps
-        if self.n_calls % 100 == 0:
+        if self.n_calls % 100 == 0:  # Log every 100 steps
             self.logger.report_scalar("Training", "Timesteps", iteration=self.num_timesteps, value=self.num_timesteps)
+            ep_len_mean = self.locals.get("ep_len_mean", None)
+            ep_rew_mean = self.locals.get("ep_rew_mean", None)
+            if ep_len_mean is not None:
+                self.logger.report_scalar("rollout", "ep_len_mean", self.num_timesteps, ep_len_mean)
+            if ep_rew_mean is not None:
+                self.logger.report_scalar("rollout", "ep_rew_mean", self.num_timesteps, ep_rew_mean)
         return True
 
 # Create the PPO model with specified hyperparameters
