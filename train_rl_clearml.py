@@ -33,10 +33,14 @@ run = wandb.init(project="RL_OT2_Control", name="Task11_RL_Training", sync_tenso
 save_path = f"models/{run.id}"
 os.makedirs(save_path, exist_ok=True)
 
-# Initialize the Gym Environment
-# Render should be set to False for training
-env = DummyVecEnv([lambda: OT2Env(render=False, max_steps=500)])
-check_env(env)
+# Initialize the raw environment
+raw_env = OT2Env(render=False, max_steps=500)
+
+# Check the raw environment
+check_env(raw_env)
+
+# Wrap the environment with DummyVecEnv after validation
+env = DummyVecEnv([lambda: raw_env])
 
 # Define a custom logging callback for ClearML
 class ClearMLLoggingCallback(BaseCallback):
