@@ -3,7 +3,7 @@ import os
 from stable_baselines3 import PPO
 from stable_baselines3.common.callbacks import CallbackList, BaseCallback
 from wandb.integration.sb3 import WandbCallback
-from stable_baselines3.common.env_checker import check_env
+from gymnasium.utils.env_checker import check_env
 from stable_baselines3.common.vec_env import DummyVecEnv
 from ot2_gym_wrapper import OT2Env  # Ensure this is your Task 10 Gym Wrapper
 import wandb
