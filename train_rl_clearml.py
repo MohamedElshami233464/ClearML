@@ -32,9 +32,16 @@ gamma = 0.995
 total_timesteps = 5_000_000
 n_epochs = 10
 
-# Initialize the Gym Environment
-env = DummyVecEnv([lambda: OT2Env(render=False, max_steps=500)])  # Adjust `max_steps` as needed
-check_env(env)  # Check if the environment adheres to Gym's API
+# Initialize the raw environment
+raw_env = OT2Env(render=False, max_steps=500)
+
+# Check the raw environment before wrapping it
+from gymnasium.utils.env_checker import check_env
+check_env(raw_env)
+
+# Wrap the environment after validation
+env = DummyVecEnv([lambda: raw_env])
+
 
 # Define the PPO model
 model = PPO(
