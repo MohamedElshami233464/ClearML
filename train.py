@@ -2,9 +2,9 @@
 train.py
 
 This script trains a Reinforcement Learning (RL) agent using PPO for controlling the OT2 environment.
-- Runs remotely using ClearML.
-- Integrated with WandB for logging.
-- Avoids symlink issues on Windows.
+- The training process uses the Stable-Baselines3 library.
+- All hyperparameters are logged, and the best model is saved for later evaluation.
+- Fixes include bypassing symlink creation issues on Windows.
 
 Author: [Mohamed Elshami]
 """
@@ -12,17 +12,14 @@ Author: [Mohamed Elshami]
 import wandb
 import argparse
 import os
+import shutil
 from stable_baselines3 import PPO
 from wandb.integration.sb3 import WandbCallback
 from ot2_gym_wrapper import OT2Env
-from clearml import Task
-
-# ClearML task initialization
-task = Task.init(project_name="RL_OT2_Training", task_name="RL_PPO_Training_Remote")
 
 # Logging setup: WandB integration
 os.environ["WANDB_API_KEY"] = "53c5aad13580ec16ba2461389ae74b80dcbf8da7"  # Replace with your WandB API key
-os.environ["WANDB_DISABLE_SYMLINK"] = "true"  # Prevent WandB from using symlinks
+os.environ["WANDB_DISABLE_SYMLINK"] = "true"  # Prevent WandB from using symlinks (Windows compatibility)
 run = wandb.init(project="RL_OT2_Control", name="PPO_OT2", sync_tensorboard=True)
 
 # Argument parsing for hyperparameters
@@ -33,9 +30,6 @@ parser.add_argument('--n_steps', type=int, default=2048, help='Number of steps p
 parser.add_argument('--total_timesteps', type=int, default=1_000_000, help='Total timesteps for training')
 parser.add_argument('--gamma', type=float, default=0.99, help='Discount factor for rewards')
 args = parser.parse_args()
-
-# Execute task remotely
-task.execute_remotely(queue_name="default")
 
 # Create the OT2 Environment
 env = OT2Env(render=False, max_steps=200)
@@ -53,7 +47,22 @@ model = PPO(
 )
 
 # Set up the WandB callback for saving models and logging metrics
-wandb_callback = WandbCallback(
+def save_model_no_symlink(path):
+    """Custom function to save model without using symlinks."""
+    if not os.path.exists(path):
+        os.makedirs(path)
+    model_path = os.path.join(path, "model.zip")
+    shutil.copyfile("models/temp_model.zip", model_path)
+
+
+class CustomWandbCallback(WandbCallback):
+    def save_model(self):
+        """Override save_model to avoid symlink errors."""
+        self.model.save("models/temp_model.zip")  # Save the model temporarily
+        save_model_no_symlink(self.model_save_path)  # Save it to WandB directory
+
+
+wandb_callback = CustomWandbCallback(
     model_save_freq=1000,
     model_save_path=f"models/{run.id}",
     verbose=2,
