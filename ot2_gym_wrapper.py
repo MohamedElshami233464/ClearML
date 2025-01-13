@@ -44,7 +44,9 @@ class OT2Env(gym.Env):
         observation = np.concatenate([pipette_position, self.goal_position]).astype(np.float32)
 
         self.steps = 0
+        # Return observation and an empty info dictionary
         return observation, {}
+
 
     def step(self, action):
         full_action = np.append(action, [0])
