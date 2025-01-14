@@ -1,8 +1,8 @@
 """
-train_rl_local.py
+train_rl_clearml_1.py
 
 This script trains a Reinforcement Learning (RL) agent to control the OT-2 pipette tip using Stable Baselines 3 (PPO).
-It runs locally and logs progress using TensorBoard and Weights and Biases (WandB).
+It runs on the ClearML server and logs metrics to the Scalars section.
 
 Author: Mohamed Elshami
 """
@@ -10,20 +10,15 @@ Author: Mohamed Elshami
 import os
 from stable_baselines3 import PPO
 from stable_baselines3.common.vec_env import DummyVecEnv
-from stable_baselines3.common.callbacks import CallbackList, BaseCallback
+from stable_baselines3.common.callbacks import BaseCallback, CallbackList
 from gymnasium.utils.env_checker import check_env
-from wandb.integration.sb3 import WandbCallback
-from ot2_gym_wrapper import OT2Env  # Ensure this is your Task 10 Gym Wrapper
-import wandb
-import time
+from clearml import Task, Logger
+from ot2_gym_wrapper import OT2Env
 
-# Set WandB API key
-os.environ["WANDB_API_KEY"] = "53c5aad13580ec16ba2461389ae74b80dcbf8da7"
-
-# Initialize WandB project
-run = wandb.init(project="RL_OT2_Control", name="Local_RL_Training", sync_tensorboard=True)
-save_path = f"models/{run.id}"
-os.makedirs(save_path, exist_ok=True)
+# Initialize ClearML task
+task = Task.init(project_name="RL_OT2_Project", task_name="Task11_RL_Training")
+task.set_base_docker("deanis/2023y2b-rl:latest")
+task.execute_remotely(queue_name="default")
 
 # Define hyperparameters
 learning_rate = 0.0001
@@ -43,26 +38,23 @@ check_env(raw_env)
 # Wrap the environment after validation
 env = DummyVecEnv([lambda: raw_env])
 
-
-# Custom Logging Callback for WandB
-class CustomLoggingCallback(BaseCallback):
+# Custom Callback for ClearML logging
+class ClearMLLoggingCallback(BaseCallback):
     def __init__(self, verbose=0):
-        super(CustomLoggingCallback, self).__init__(verbose)
+        super(ClearMLLoggingCallback, self).__init__(verbose)
+        self.logger = Logger.current_logger()
 
     def _on_step(self) -> bool:
-        # Log every 100 steps
-        if self.n_calls % 100 == 0:
-            wandb.log({
-                "rollout/ep_len_mean": self.locals.get("ep_len_mean", None),
-                "rollout/ep_rew_mean": self.locals.get("ep_rew_mean", None),
-                "time/total_timesteps": self.num_timesteps,
-                "time/elapsed_time": time.time() - self.start_time,
-            })
+        if self.n_calls % 100 == 0:  # Log every 100 steps
+            # Log scalars to ClearML
+            self.logger.report_scalar("Training", "Timesteps", iteration=self.num_timesteps, value=self.num_timesteps)
+            ep_len_mean = self.locals.get("ep_len_mean", None)
+            ep_rew_mean = self.locals.get("ep_rew_mean", None)
+            if ep_len_mean is not None:
+                self.logger.report_scalar("rollout", "ep_len_mean", self.num_timesteps, ep_len_mean)
+            if ep_rew_mean is not None:
+                self.logger.report_scalar("rollout", "ep_rew_mean", self.num_timesteps, ep_rew_mean)
         return True
-
-    def _on_training_start(self):
-        self.start_time = time.time()
-
 
 # Define the PPO model
 model = PPO(
@@ -74,30 +66,22 @@ model = PPO(
     n_steps=n_steps,
     gamma=gamma,
     n_epochs=n_epochs,
-    tensorboard_log=f"runs/{run.id}",
+    tensorboard_log=f"runs/ClearML",
 )
 
-# Set up WandB callback
-wandb_callback = WandbCallback(
-    model_save_freq=100000,
-    model_save_path=save_path,
-    verbose=2
-)
+# Combine ClearML logging callback
+clearml_callback = ClearMLLoggingCallback()
 
-# Combine callbacks
-callbacks = CallbackList([wandb_callback, CustomLoggingCallback()])
-
-# Train the model
+# Start training
 print("Starting training...")
-model.learn(total_timesteps=total_timesteps, callback=callbacks, progress_bar=True)
+model.learn(total_timesteps=total_timesteps, callback=clearml_callback, progress_bar=True)
 print("Training completed.")
 
-# Save the final model
-final_model_path = f"{save_path}/final_model"
-model.save(final_model_path)
-wandb.save(final_model_path)
-print(f"Model saved at {final_model_path}")
+# Save the final trained model
+model_path = "trained_model.zip"
+model.save(model_path)
+task.upload_artifact(name="final_model", artifact_object=model_path)
+print(f"Model saved at {model_path}")
 
 # Clean up resources
 env.close()
-wandb.finish()
