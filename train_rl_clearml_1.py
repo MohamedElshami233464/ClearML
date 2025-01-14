@@ -42,18 +42,25 @@ env = DummyVecEnv([lambda: raw_env])
 class ClearMLLoggingCallback(BaseCallback):
     def __init__(self, verbose=0):
         super(ClearMLLoggingCallback, self).__init__(verbose)
-        self.logger = Logger.current_logger()
 
     def _on_step(self) -> bool:
         if self.n_calls % 100 == 0:  # Log every 100 steps
             # Log scalars to ClearML
-            self.logger.report_scalar("Training", "Timesteps", iteration=self.num_timesteps, value=self.num_timesteps)
-            ep_len_mean = self.locals.get("ep_len_mean", None)
-            ep_rew_mean = self.locals.get("ep_rew_mean", None)
-            if ep_len_mean is not None:
-                self.logger.report_scalar("rollout", "ep_len_mean", self.num_timesteps, ep_len_mean)
-            if ep_rew_mean is not None:
-                self.logger.report_scalar("rollout", "ep_rew_mean", self.num_timesteps, ep_rew_mean)
+            Logger.current_logger().report_scalar(
+                "Training", "Timesteps", iteration=self.num_timesteps, value=self.num_timesteps
+            )
+            ep_len_mean = self.locals.get("ep_info_buffer", None)
+            if ep_len_mean is not None and len(ep_len_mean) > 0:
+                ep_len = ep_len_mean.mean()
+                Logger.current_logger().report_scalar(
+                    "rollout", "ep_len_mean", iteration=self.num_timesteps, value=ep_len
+                )
+            ep_rew_mean = self.locals.get("rollout_buffer", None)
+            if ep_rew_mean is not None and len(ep_rew_mean.rewards) > 0:
+                rew_mean = sum(ep_rew_mean.rewards) / len(ep_rew_mean.rewards)
+                Logger.current_logger().report_scalar(
+                    "rollout", "ep_rew_mean", iteration=self.num_timesteps, value=rew_mean
+                )
         return True
 
 # Define the PPO model
