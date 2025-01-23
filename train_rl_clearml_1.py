@@ -1,13 +1,5 @@
-"""
-train_rl_clearml_1.py
-
-This script trains a Reinforcement Learning (RL) agent to control the OT-2 pipette tip using Stable Baselines 3 (PPO).
-It runs on the ClearML server and logs metrics to the Scalars section.
-
-Author: Mohamed Elshami
-"""
-
 import os
+import torch
 from stable_baselines3 import PPO
 from stable_baselines3.common.vec_env import DummyVecEnv
 from stable_baselines3.common.callbacks import BaseCallback, CallbackList
@@ -16,21 +8,27 @@ from clearml import Task, Logger
 from ot2_gym_wrapper import OT2Env
 
 # Initialize ClearML task
-task = Task.init(project_name="RL_OT2_Project", task_name="Task11_RL_Training")
+task = Task.init(project_name="RL_OT2_Project_1", task_name="Task11_RL_Training")
 task.set_base_docker("deanis/2023y2b-rl:latest")
 task.execute_remotely(queue_name="default")
 
+# Ensure GPU is used
+device = "cuda" if torch.cuda.is_available() else "cpu"
+print(f"Using device: {device}")
+
 # Define hyperparameters
-learning_rate = 0.0001
-batch_size = 512
-n_steps = 8192
-gamma = 0.995
-total_timesteps = 5_000_000
-n_epochs = 10
-max_steps = 500  # Maximum steps per episode
+hyperparams = {
+    "learning_rate": 0.0001,
+    "batch_size": 512,
+    "n_steps": 8192,
+    "gamma": 0.995,
+    "n_epochs": 10,
+    "max_steps": 500,  # Maximum steps per episode
+    "total_timesteps": 5_000_000,
+}
 
 # Initialize the raw environment
-raw_env = OT2Env(render=False, max_steps=max_steps)
+raw_env = OT2Env(render=False, max_steps=hyperparams["max_steps"])
 
 # Check the raw environment before wrapping it
 check_env(raw_env)
@@ -68,11 +66,8 @@ model = PPO(
     policy="MlpPolicy",
     env=env,
     verbose=1,
-    learning_rate=learning_rate,
-    batch_size=batch_size,
-    n_steps=n_steps,
-    gamma=gamma,
-    n_epochs=n_epochs,
+    device=device,  # Ensure model uses GPU
+    **hyperparams,
     tensorboard_log=f"runs/ClearML",
 )
 
@@ -81,7 +76,7 @@ clearml_callback = ClearMLLoggingCallback()
 
 # Start training
 print("Starting training...")
-model.learn(total_timesteps=total_timesteps, callback=clearml_callback, progress_bar=True)
+model.learn(total_timesteps=hyperparams["total_timesteps"], callback=clearml_callback, progress_bar=True)
 print("Training completed.")
 
 # Save the final trained model

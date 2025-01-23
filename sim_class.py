@@ -468,17 +468,3 @@ class Simulation:
     # close the simulation
     def close(self):
         p.disconnect()
-
-
-
-
-
-
-
-
-
-
-    
-
-
-
